@@ -2,12 +2,12 @@
 - difference between authorization and authentication
   - can't have authorization w/o authentication, but can do vice versa
   - we are doing authentication
-- frontend & backend
+- this is a frontend & backend app
 
 ## Touring the starter code
 - there is an express app serving up the frontend
 - 3001 vs 3000
-- main.js
+- main.js; maybe move links stuff into links.js?
 - users migration & model
 
 ## Setup
@@ -39,26 +39,29 @@
 
 ## Chapter 3: Logging out
 ### Backend
-  - not a damn thing: the backend has no persisted memory of whether someone is logged in or not
+  - not a dang thing: the backend has no persisted memory of whether someone is logged in or not
 ### Frontend
   - clear localstorage
   - show home page
 
 ## Chapter 4: Detecting the logged in state
+### Backend
+  - (optional) GET /users/verify endpoint
 ### Frontend
   - on page load, check local storage
   - if present, show logged in state, else show logged out
-  - /users/verify endpoint if time/energy
-### Backend
-  - /users/verify endpoint if time/energy
+  - (optional) hit the /users/verify endpoint
 
 ## Chapter 5: Using a protected route
-### Frontend
-  - send userId in payload
 ### Backend
+  - GET /users/profile
   - look that user up
   - if present, show profile
   - if absent, 401
+### Frontend
+  - send userId in payload
+
+## You now have a functioning users app; everything below this is stretch
 
 ## Chapter 6: Encrypting the userId
 ### Backend
@@ -73,4 +76,10 @@
   - before creating user, bcrypt.hashSync(req.body.password, 10)
   - when logging in, instead of direct password comparison, bcrypt.compareSync(req.body.password, user.password)
 ### Frontend
-  - not a damn thing
+  - not a dang thing
+
+## Chapter 8: User on every request
+### Frontend
+  - include userId in headers of every request, either with axios default or request function
+### Backend
+  - install middleware that looks up user before every request and puts it (or null) into req.user
