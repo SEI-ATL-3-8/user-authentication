@@ -1,3 +1,4 @@
+// nav links
 document.querySelector('#home-link').addEventListener('click', () => {
   document.querySelectorAll('section').forEach(s => s.classList.add('hidden'))
   document.querySelector('#home-content').classList.remove('hidden')
@@ -14,9 +15,11 @@ document.querySelector('#login-link').addEventListener('click', () => {
 })
 
 document.querySelector('#logout-link').addEventListener('click', () => {
-  console.log('you clicked the logout link!');
+  document.querySelectorAll('section').forEach(s => s.classList.add('hidden'))
+  document.querySelector('#home-content').classList.remove('hidden')
 })
 
 document.querySelector('#profile-link').addEventListener('click', () => {
-  console.log('you clicked the profile link!');
+  document.querySelectorAll('section').forEach(s => s.classList.add('hidden'))
+  document.querySelector('#profile-content').classList.remove('hidden')
 })
