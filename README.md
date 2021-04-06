@@ -11,8 +11,8 @@
 - users migration & model
 
 ## Setup
-- npm i
-- sequelize db:create/migrate
+- npm i in both repos
+- sequelize db:create/migrate in backend
 - 2 terminal tabs for front & back, run both servers
 
 ## Chapter 1: Creating a user (aka signup)
