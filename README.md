@@ -1,47 +1,76 @@
+# Intro to Auth
+- difference between authorization and authentication
+  - can't have authorization w/o authentication, but can do vice versa
+  - we are doing authentication
+- frontend & backend
 
-starter code:
-  - frontend
-    - express server that serves 3 files on 3000
-    - nav bar, signup & login forms
-  - backend
-    - sequelize set up for users
-    - no router/controller for simplicity
-    - port 3001
+## Touring the starter code
+- there is an express app serving up the frontend
+- 3001 vs 3000
+- main.js
+- users migration & model
 
+## Setup
+- npm i
+- sequelize db:create/migrate
+- 2 terminal tabs for front & back, run both servers
 
+## Chapter 1: Creating a user (aka signup)
+### Backend
+  - set up POST /users route
+  - email uniqueness
+  - respond w/ user obj
+### Frontend
+  - axios
+  - post on form submission
+  - if error, alert it
+  - if success, save user id to localStorage
+  - good time for morgan
 
-- creating a user:
-  - backend only
-    - email uniqueness
-    - respond w/ user obj
-  - frontend
-    - axios
-    - post on form submission
-    - if error, alert it
-    - if success, save user id to localStorage
-    - good time for morgan
+## Chapter 2: Logging in
+### Backend
+  - POST /users/login
+  - look up user by email
+  - check if passwords match
+  - if so, respond w/ user obj
+  - otherwise, 401
+### Frontend
+  - same as signup form, just make sure you use login inputs values
 
-- logging in:
-  - backend
-    - plaintext password check
-    - respond w/ userId if match, else 401
-  - frontend
-    - same as signup form, just make sure you use login inputs values
+## Chapter 3: Logging out
+### Backend
+  - not a damn thing: the backend has no persisted memory of whether someone is logged in or not
+### Frontend
+  - clear localstorage
+  - show home page
 
-- logout:
-  - backend: nothing
-  - frontend: just clear localstorage
+## Chapter 4: Detecting the logged in state
+### Frontend
+  - on page load, check local storage
+  - if present, show logged in state, else show logged out
+  - /users/verify endpoint if time/energy
+### Backend
+  - /users/verify endpoint if time/energy
 
-- detecting logged in state:
-  - frontend
-    - on page load, check local storage
-    - if present, show logged in state, else show logged out
-    - mention the /users/verify endpoint
-  - backend
-    - 
+## Chapter 5: Using a protected route
+### Frontend
+  - send userId in payload
+### Backend
+  - look that user up
+  - if present, show profile
+  - if absent, 401
 
-- using a protected route
-  - frontend
-    - send userId in payload
-  - backend
-    - look that user up
+## Chapter 6: Encrypting the userId
+### Backend
+  - before userId goes out the door, use jsonwebtoken.sign({userId: id}, secret)
+  - secret must be put in .env
+  - when looking up user, jsonwebtoken.verify({userId: id}, secret)
+### Frontend
+  - the userId you get back will now be signed, just save it to localstorage
+
+## Chapter 7: Hashing db passwords
+### Backend
+  - before creating user, bcrypt.hashSync(req.body.password, 10)
+  - when logging in, instead of direct password comparison, bcrypt.compareSync(req.body.password, user.password)
+### Frontend
+  - not a damn thing
